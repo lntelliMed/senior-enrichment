@@ -14,4 +14,10 @@ apiRouter.get('/students', (req, res, next) => {
 		.catch(next);
 });
 
+apiRouter.get('/campuses', (req, res, next) => {
+	Campus.findAll()
+		.then(campuses => res.json(campuses))
+		.catch(next);
+});
+
 module.exports = apiRouter;
