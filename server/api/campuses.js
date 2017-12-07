@@ -20,4 +20,10 @@ apiRouter.get('/', (req, res, next) => {
 		.catch(next);
 });
 
+apiRouter.get('/:campusId', (req, res, next) => {
+	Campus.findById(req.params.campusId)
+		.then(campus => res.json(campus))
+		.catch(next);
+});
+
 module.exports = apiRouter;

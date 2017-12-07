@@ -14,5 +14,10 @@ apiRouter.get('/', (req, res, next) => {
 		.catch(next);
 });
 
+apiRouter.get('/:studentId', (req, res, next) => {
+	Student.findById(req.params.studentId)
+		.then(student => res.json(student))
+		.catch(next);
+});
 
 module.exports = apiRouter;
