@@ -1,0 +1,20 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 56px;
+}
+
+
+img {
+  height: 200px;
+}
+
+.school-header {
+  display: flex;
+}
+
+ li {
+    list-style-type: none;
+}
