@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 
 
 const SingleCampus = (props) => {
+    let foundCampus = props.campuses.find((campus => campus.id === Number(props.match.params.campusId)));
     return (
-      <div>
-        {console.log(props.campuses)}
-        {`Get the campus with ID ${props.match.params.campusId}`}
-
-      </div>
+      <ul className="student-list">
+        {/* {`Get the campus with ID ${props.match.params.campusId}`} */}
+        {foundCampus && foundCampus.students.map(student => (
+          <Link key={student.id} to={`/students/${student.id}`}>
+            <li >
+              {student.name}
+            </li>
+          </Link>
+        ))}
+      </ul>
     );
   }
 

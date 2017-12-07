@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchStudents } from '../reducers/studentReducer';
+import { Header, Image, Table, Button, Icon } from 'semantic-ui-react'
+
 
 class StudentList extends Component {
   componentDidMount() {
@@ -9,15 +11,74 @@ class StudentList extends Component {
   }
   render() {
     return (
-      <ul>
-        {this.props.students.map(student => (
-          <Link to={`/students/${student.id}`}>
-            <li key={student.id}>
-              {student.name}
-            </li>
-          </Link>
-        ))}
-      </ul>
+
+
+
+      <div>
+        < Icon onClick={(event)=> console.log('Add a new user now!')} bordered circular size='large' color='red' name='add button' />
+
+        <Table basic='very' celled collapsing>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>#</Table.HeaderCell>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Campus</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+
+            {this.props.students.map(student => (
+
+            <Table.Row>
+
+
+
+              <Table.Cell>
+                <Link key={student.id} to={`/students/${student.id}`}>
+                  {student.id}
+                </Link>
+              </Table.Cell>
+
+
+                <Table.Cell>
+                  <Link key={student.id} to={`/students/${student.id}`}>
+
+                  <Header as='h4' image>
+                    <Icon name='student' />
+                    <Header.Content>
+                        {student.name}
+                      </Header.Content>
+                  </Header>
+                  </Link>
+
+                </Table.Cell>
+
+
+                <Table.Cell>
+                  <Link key={student.campus.id} to={`/campuses/${student.campus.id}`}>
+
+                    <Header as='h4' image>
+                      <Image src={student.campus.imageUrl} rounded size='mini' />
+                      <Header.Content>
+                        {student.campus.name}
+                      </Header.Content>
+                    </Header>
+                  </Link>
+
+                </Table.Cell>
+
+              <Table.Cell>
+                  <Button onClick={(event) => console.log("Delete this user now!")} circular color='google plus' icon='remove' size='mini' />
+              </Table.Cell>
+            </Table.Row>
+            ))}
+
+          </Table.Body>
+        </Table>
+      </div>
+
     );
   }
 }

@@ -12,8 +12,18 @@ img {
 }
 
 .school-header {
-  display: flex;
+  /* display: flex; */
+   justify-content:center;
+   align-items: flex-end;
 }
+
+.campus-list li {
+  display: inline;
+}
+
+/* .campus-item {
+  display: block;
+} */
 
  li {
     list-style-type: none;

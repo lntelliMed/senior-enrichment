@@ -21,6 +21,7 @@ export default class Root extends Component {
                 <Route path="/campuses/:campusId" component={SingleCampus} />
                 <Route exact path="/students" component={StudentList} />
                 <Route path="/students/:studentId" component={SingleStudent} />
+              <Redirect to="/campuses" />
               </Switch>
 
             </main>
