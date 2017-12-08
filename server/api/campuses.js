@@ -26,4 +26,11 @@ apiRouter.get('/:campusId', (req, res, next) => {
 		.catch(next);
 });
 
+apiRouter.post('/', function (req, res, next) {
+	console.log('dddddddddddd ', req.body)
+	Campus.create(req.body)
+	.then(campus => res.json(campus))
+	.catch(next);
+});
+
 module.exports = apiRouter;

@@ -6,9 +6,9 @@ module.exports = db.define('campus', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    validate: {
-      isEmpty: false
-    }
+    // validate: {
+    //   isEmpty: false
+    // }
   },
   imageUrl: {
     type: Sequelize.STRING,

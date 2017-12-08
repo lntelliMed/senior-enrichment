@@ -37,16 +37,17 @@ console.log(student)
   }
 }
 
-export function updateStudent(student, history) {
+export function updateStudent(student, ownProps) {
   console.log(student)
+  console.log('ownprops again', ownProps)
   return function thunk(dispatch) {
-    return axios.put(`/api/students/${student.id}`, student)
+    return axios.put(`/api/students/${ownProps.match.params.studentId}`, student)
       .then(res => res.data)
       .then(updatedStudent => {
         const action = changeStudent(updatedStudent);
         dispatch(action);
         // history.push(`/students/${newStudent.id}`)
-        history.push(`/students`);
+        ownProps.history.push(`/students`);
 
       });
   }

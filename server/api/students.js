@@ -32,17 +32,20 @@ apiRouter.post('/', function (req, res, next) {
 
 
 apiRouter.put('/:studentId', function (req, res, next) {
+	console.log('In apiRouter.put!!', req.body.firstName, req.params.studentId)
 	Campus.find({ where: { name: req.body.campusName } })
 		.then(campus => {
-			return req.body.campusId = campus.id;
+			req.body.campusId = campus.id;
 		})
 		.then(() => {
-			return Student.findById(req.params.studentId)
+			// return Student.findById(req.params.studentId)
+			Student.update(req.body, { where: { id: req.params.studentId}})
 		})
 		.then((student) => {
-			return	student.update(req.body);
+			// return	student.update(req.body);
+			return res.json(student)
 		})
-		.then(student => res.json(student))
+		// .then(student => res.json(student))
 		.catch(next);
 });
 

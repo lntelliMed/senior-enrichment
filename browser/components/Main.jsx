@@ -6,6 +6,7 @@ import CampusList from './CampusList';
 import SingleCampus from './SingleCampus';
 import SingleStudent from './SingleStudent';
 import AddStudent from './AddStudent';
+import AddCampus from './AddCampus';
 
 export default class Root extends Component {
 
@@ -23,6 +24,7 @@ export default class Root extends Component {
                 <Route exact path="/students" component={StudentList} />
                 <Route path="/students/:studentId" component={SingleStudent} />
                 <Route path="/add-student" component={AddStudent} />
+                <Route path="/add-campus" component={AddCampus} />
                 <Redirect to="/campuses" />
               </Switch>
 
