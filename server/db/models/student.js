@@ -7,14 +7,14 @@ module.exports = db.define('student', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isEmpty: false
+      // isEmpty: false
     }
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isEmpty: false
+      // isEmpty: false
     }
   },
   email: {
@@ -22,7 +22,7 @@ module.exports = db.define('student', {
     allowNull: false,
     validate: {
       isEmail: true,
-      isEmpty: false
+      // isEmpty: false
     }
   },
   gpa: {

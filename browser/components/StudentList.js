@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchStudents } from '../reducers/studentReducer';
+import { fetchStudents, deleteStudent } from '../reducers/studentReducer';
 import { Header, Image, Table, Button, Icon } from 'semantic-ui-react'
 
 
@@ -15,7 +15,7 @@ class StudentList extends Component {
 
 
       <div>
-        < Icon onClick={(event)=> console.log('Add a new user now!')} bordered circular size='large' color='red' name='add button' />
+        <Link to="/add-student">< Icon  bordered circular size='large' color='red' name='add button' /></Link>
 
         <Table basic='very' celled collapsing>
           <Table.Header>
@@ -29,15 +29,15 @@ class StudentList extends Component {
 
           <Table.Body>
 
-            {this.props.students.map(student => (
-
+            {this.props.students.map(student => {
+              return (
             <Table.Row>
 
 
 
               <Table.Cell>
                 <Link key={student.id} to={`/students/${student.id}`}>
-                  {student.id}
+                    {student.id}
                 </Link>
               </Table.Cell>
 
@@ -57,7 +57,7 @@ class StudentList extends Component {
 
 
                 <Table.Cell>
-                  <Link key={student.campus.id} to={`/campuses/${student.campus.id}`}>
+                 { student.campus  && <Link key={student.campus.id} to={`/campuses/${student.campus.id}`}>
 
                     <Header as='h4' image>
                       <Image src={student.campus.imageUrl} rounded size='mini' />
@@ -65,15 +65,15 @@ class StudentList extends Component {
                         {student.campus.name}
                       </Header.Content>
                     </Header>
-                  </Link>
+                  </Link>}
 
                 </Table.Cell>
 
               <Table.Cell>
-                  <Button onClick={(event) => console.log("Delete this user now!")} circular color='google plus' icon='remove' size='mini' />
+                  <Button onClick={() => this.props.deleteStudent(student.id)} circular color='google plus' icon='remove' size='mini' />
               </Table.Cell>
             </Table.Row>
-            ))}
+            )})}
 
           </Table.Body>
         </Table>
@@ -93,9 +93,14 @@ function mapDispatchToProps(dispatch) {
   return {
     loadStudents: function () {
       dispatch(fetchStudents());
+    },
+    deleteStudent: function (studentId) {
+      dispatch(deleteStudent(studentId));
     }
   };
 }
+
+
 
 const StudentListContainer = connect(mapStateToProps, mapDispatchToProps)(StudentList);
 

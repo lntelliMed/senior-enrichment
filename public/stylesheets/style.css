@@ -12,13 +12,13 @@ img {
 }
 
 .school-header {
-  /* display: flex; */
-   justify-content:center;
+  display: flex;
+   justify-content: flex-start;
    align-items: flex-end;
 }
 
 .campus-list li {
-  display: inline;
+  display: inline-block;
 }
 
 /* .campus-item {

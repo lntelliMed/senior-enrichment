@@ -8,17 +8,23 @@ export default class Navbar extends Component {
     return (
       <nav>
         <div className="school-header">
-          {/* <Icon.Group size='huge'>
-            <Icon loading size='big' name='sun' />
-            <Icon name='student' />
-          </Icon.Group> */}
+          <div>
+            <Icon.Group size='huge'>
+              <Icon loading size='big' name='sun' />
+              <Icon name='student' />
+            </Icon.Group>
+          </div>
+          <div>
+            <h2>Margaret Hamilton Interplanetary Academy of JavaScript</h2>
+            <Button.Group>
+              <Link to="/campuses"><Button>Home</Button></Link>
+              <Button.Or />
+              <Link to="/students"><Button positive>Students</Button></Link>
+            </Button.Group>
 
-          <h2>Margaret Hamilton Interplanetary Academy of JavaScript</h2>
-          <Button.Group>
-            <Link to="/campuses"><Button>Home</Button></Link>
-            <Button.Or />
-            <Link to="/students"><Button positive>students</Button></Link>
-          </Button.Group>
+
+            </div>
+
           </div>
           <hr />
         {/* <Icon name='student' size='massive' /> */}

@@ -8,7 +8,7 @@ import { fetchCampuses } from '../reducers/campusReducer';
 class CampusList extends Component {
   componentDidMount() {
     this.props.loadCampuses();
-    console.log('--------- ', this.props.campuses);
+    // console.log('--------- ', this.props.campuses);
   }
   render() {
     return (
@@ -17,9 +17,13 @@ class CampusList extends Component {
             <Link key={campus.id} to={`/campuses/${campus.id}`}>
             {/* <div className="campus-item"> */}
               <li >
+              <figure>
               <img src={campus.imageUrl} />
-              {campus.name}
+                <figcaption>{campus.name}</figcaption>
+
+              </figure>
               </li>
+            {/* <p>{campus.name}</p> */}
             {/* </div> */}
             </Link>
         ))}

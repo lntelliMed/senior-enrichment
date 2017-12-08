@@ -21,6 +21,7 @@ export const gotCampuses = (campuses) => {
 }
 
 
+
 const campusReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_CAMPUSES_FROM_SERVER:

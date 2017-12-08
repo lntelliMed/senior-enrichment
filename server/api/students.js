@@ -20,4 +20,18 @@ apiRouter.get('/:studentId', (req, res, next) => {
 		.catch(next);
 });
 
+apiRouter.post('/', function (req, res, next) {
+	console.log('................. ', req.body)
+	Student.create(req.body)
+		.then(student => res.json(student))
+		.catch(next);
+});
+
+apiRouter.delete('/:studentId', function (req, res, next) {
+	console.log('................. ', req.body)
+	Student.destroy({where: {id: req.params.studentId}})
+		.then(response => res.send('Deletion was successfull!'))
+		.catch(next);
+});
+
 module.exports = apiRouter;
