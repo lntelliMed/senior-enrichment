@@ -5,9 +5,15 @@ const initialState = []
 const GOT_STUDENTS_FROM_SERVER = "GOT_STUDENTS_FROM_SERVER";
 const ADD_STUDENT = "ADD_STUDENT";
 const REMOVE_STUDENT = "REMOVE_STUDENT";
+const UPDATE_STUDENT = "UPDATE_STUDENT";
 
 export function getStudent(student) {
   const action = { type: ADD_STUDENT, student };
+  return action;
+}
+
+export function changeStudent(student) {
+  const action = { type: UPDATE_STUDENT, student };
   return action;
 }
 
@@ -17,12 +23,27 @@ export function removeStudent(studentId) {
 }
 
 export function postStudent(student, history) {
-
+console.log(student)
   return function thunk(dispatch) {
     return axios.post('/api/students', student)
       .then(res => res.data)
       .then(newStudent => {
         const action = getStudent(newStudent);
+        dispatch(action);
+        // history.push(`/students/${newStudent.id}`)
+        history.push(`/students`);
+
+      });
+  }
+}
+
+export function updateStudent(student, history) {
+  console.log(student)
+  return function thunk(dispatch) {
+    return axios.put(`/api/students/${student.id}`, student)
+      .then(res => res.data)
+      .then(updatedStudent => {
+        const action = changeStudent(updatedStudent);
         dispatch(action);
         // history.push(`/students/${newStudent.id}`)
         history.push(`/students`);
@@ -71,6 +92,11 @@ const studentReducer = (state = initialState, action) => {
     case REMOVE_STUDENT:
       console.log('in reducer for remove student')
       return state.filter(student => student.id !== action.studentId);
+      // return [];
+
+    case UPDATE_STUDENT:
+      console.log('in reducer for update student')
+      return state.filter(student => student.id !== action.student.id);
       // return [];
 
     default:

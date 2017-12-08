@@ -18,46 +18,59 @@ class AddStudent extends Component {
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleCampusChange = this.handleCampusChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleGpaChange = this.handleGpaChange.bind(this);
   }
 
   handleFirstNameChange(evt) {
-    this.state.setState({ studentFirstName: evt.target.firstName.value});
+    this.setState({ studentFirstName: evt.target.value});
   }
   handleLastNameChange(evt) {
-    this.state.setState({ studentLastName: evt.target.lastName.value });
+    this.setState({ studentLastName: evt.target.value });
   }
+  // handleCampusChange(evt, campusName) {
+  //   this.setState({ campusName });
+  // }
   handleCampusChange(evt) {
-    this.state.setState({ campusName: evt.target.campusName.value });
+    console.log(evt.target)
+    this.setState({ campusName: evt.target.value });
   }
   handleEmailChange(evt) {
-    this.state.setState({ studentEmail: evt.target.email.value });
+    this.setState({ studentEmail: evt.target.value });
   }
   handleGpaChange(evt) {
-    this.state.setState({ studentGpa: evt.target.gpa.value });
+    this.setState({ studentGpa: evt.target.value });
   }
   render() {
-    // {
-    //   let allCampuses = this.props.campuses.map((campus) => {
-    //     return {
-    //       text: campus.name
-    //     }
-    //   })
-    // }
+
     return (
       <Form onSubmit={this.props.handleSubmit}>
         <Form.Group widths='equal'>
-          <Form.Input onChange={this.handleFirstNameChange} name='firstName' label='First name' placeholder='First name' value={this.state.firstName} error />
-          <Form.Input onChange={this.handleLastNameChange} name='lastName' label='Last name' placeholder='Last name' value={this.state.lastName} error />
+          <Form.Input onChange={this.handleFirstNameChange} name='firstName' label='First Name' placeholder='First Name' value={this.state.firstName} error />
+          <Form.Input onChange={this.handleLastNameChange} name='lastName' label='Last Name' placeholder='Last Name' value={this.state.lastName} error />
         </Form.Group>
         <Form.Group widths='equal'>
           <Form.Input onChange={this.handleEmailChange} name='email' label='E-mail' placeholder='E-mail' value={this.state.email} error />
           <Form.Input onChange={this.handleGpaChange} name='gpa' label='GPA' placeholder='GPA' value={this.state.gpa} error />
         </Form.Group>
-        <Form.Select onChange={this.handleCampusChange} name='campusName' options={this.props.campuses.map((campus) => {
+        {/* <Form.Select onChange={(event, { value }) => this.handleCampusChange(event, value)} name='campusName' options={this.props.campuses.map((campus) => {
           return {
-            text: campus.name
+            key: campus.id,
+            text: campus.name,
+            value: campus.name
           }
-        })} placeholder='Campus' value={this.state.campusName} error />
+        })} placeholder='Campus' value={this.state.campusName} error /> */}
+        <Form.Group widths='equal'>
+
+        <select onChange={(event) => this.handleCampusChange(event)} name='campusName' value={this.state.campusName}  >
+          {this.props.campuses.map(campus => {
+            return (
+             <option>{campus.name}</option>
+            );
+          })}
+        </select>
+          </Form.Group>
+
         <Button type='submit'>Submit</Button>
       </Form>
     );
@@ -82,9 +95,10 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       const lastName = evt.target.lastName.value;
       const email = evt.target.email.value;
       const gpa = evt.target.gpa.value;
-      // const campusName = evt.target.campusName.value;
+      const campusName = evt.target.campusName.value;
+      console.log(evt.target)
       // dispatch(postStudent({ firstName, lastName, campusName }, ownProps.history));
-      dispatch(postStudent({ firstName, lastName, email, gpa}, ownProps.history));
+      dispatch(postStudent({ firstName, lastName, email, gpa, campusName}, ownProps.history));
     }
   };
 };

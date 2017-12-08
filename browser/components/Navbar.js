@@ -8,12 +8,12 @@ export default class Navbar extends Component {
     return (
       <nav>
         <div className="school-header">
-          <div>
+          {/* <div>
             <Icon.Group size='huge'>
               <Icon loading size='big' name='sun' />
               <Icon name='student' />
             </Icon.Group>
-          </div>
+          </div> */}
           <div>
             <h2>Margaret Hamilton Interplanetary Academy of JavaScript</h2>
             <Button.Group>

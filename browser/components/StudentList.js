@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchStudents, deleteStudent } from '../reducers/studentReducer';
-import { Header, Image, Table, Button, Icon } from 'semantic-ui-react'
+import { Header, Image, Table, Button, Icon} from 'semantic-ui-react'
 
 
 class StudentList extends Component {
@@ -17,10 +17,10 @@ class StudentList extends Component {
       <div>
         <Link to="/add-student">< Icon  bordered circular size='large' color='red' name='add button' /></Link>
 
-        <Table basic='very' celled collapsing>
+        <Table  sortable celled collapsing>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>#</Table.HeaderCell>
+              <Table.HeaderCell singleLine>#</Table.HeaderCell>
               <Table.HeaderCell>Name</Table.HeaderCell>
               <Table.HeaderCell>Campus</Table.HeaderCell>
               <Table.HeaderCell></Table.HeaderCell>
@@ -70,13 +70,19 @@ class StudentList extends Component {
                 </Table.Cell>
 
               <Table.Cell>
-                  <Button onClick={() => this.props.deleteStudent(student.id)} circular color='google plus' icon='remove' size='mini' />
+                  <Button onClick={() => {
+                      if (confirm("Are you sure?")) {
+                        this.props.deleteStudent(student.id);
+                      }
+                    }} circular color='google plus' icon='remove' size='mini' />
               </Table.Cell>
             </Table.Row>
             )})}
 
           </Table.Body>
         </Table>
+
+
       </div>
 
     );

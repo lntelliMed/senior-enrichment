@@ -21,11 +21,31 @@ apiRouter.get('/:studentId', (req, res, next) => {
 });
 
 apiRouter.post('/', function (req, res, next) {
-	console.log('................. ', req.body)
-	Student.create(req.body)
+	Campus.find({where: {name: req.body.campusName}})
+	.then(campus => {
+		req.body.campusId = campus.id;
+		return Student.create(req.body)
+	})
+	.then(student => res.json(student))
+	.catch(next);
+});
+
+
+apiRouter.put('/:studentId', function (req, res, next) {
+	Campus.find({ where: { name: req.body.campusName } })
+		.then(campus => {
+			return req.body.campusId = campus.id;
+		})
+		.then(() => {
+			return Student.findById(req.params.studentId)
+		})
+		.then((student) => {
+			return	student.update(req.body);
+		})
 		.then(student => res.json(student))
 		.catch(next);
 });
+
 
 apiRouter.delete('/:studentId', function (req, res, next) {
 	console.log('................. ', req.body)
