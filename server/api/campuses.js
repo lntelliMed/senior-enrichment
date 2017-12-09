@@ -33,4 +33,21 @@ apiRouter.post('/', function (req, res, next) {
 	.catch(next);
 });
 
+apiRouter.delete('/:campusId', function (req, res, next) {
+	console.log('................. ', req.body)
+	Campus.destroy({where: {id: req.params.campusId}})
+		.then(response => res.send('Deletion was successfull!'))
+		.catch(next);
+});
+
+
+apiRouter.put('/:campusId', function (req, res, next) {
+	console.log('In apiRouter.put for campus!!', req.body.name, req.params.campusId)
+	Campus.update(req.body, { where: { id: req.params.campusId } })
+		.then((campus) => {
+			return res.json(campus)
+		})
+		.catch(next);
+});
+
 module.exports = apiRouter;

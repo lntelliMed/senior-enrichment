@@ -7,21 +7,32 @@ import { updateStudent } from '../reducers/studentReducer'
 class SingleStudent extends Component {
   constructor(props){
     super(props);
-    // this.state = {
-    //   foundStudent: {
-    //     firstName: "",
-    //     lastName: "",
-    //     email: "",
-    //     gpa: 0.0,
-    //     campus: {
-    //       name: ""
-    //     }
 
-    //   }
-    // }
-
-    let theStudent = this.props.students.find((studentId => studentId.id === Number(this.props.match.params.studentId)));
+    // let theStudent = this.props.students.find((studentId => studentId.id === Number(this.props.match.params.studentId)));
     this.state = {
+      foundStudent: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        gpa: 0.0,
+        campus: {
+          name: ''
+        }
+      }
+    };
+
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleCampusChange = this.handleCampusChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleGpaChange = this.handleGpaChange.bind(this);
+  }
+
+
+  componentWillMount(){
+    // this.setState({ foundStudent: this.props.students.find((studentId => studentId.id === Number(this.props.match.params.studentId))) });
+    let theStudent = this.props.students.find((studentId => studentId.id === Number(this.props.match.params.studentId)));
+    this.setState({
       foundStudent: {
         firstName: theStudent.firstName,
         lastName: theStudent.lastName,
@@ -31,52 +42,30 @@ class SingleStudent extends Component {
           name: theStudent.campus.name
         }
       }
-    };
-
-    console.log('ssssssssss', this.state.foundStudent)
-    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-    this.handleLastNameChange = this.handleLastNameChange.bind(this);
-    this.handleCampusChange = this.handleCampusChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleGpaChange = this.handleGpaChange.bind(this);
+    });
+    console.log('------- ', this.state)
   }
-
-
-  // componentDidMount(){
-    // this.setState({ foundStudent: this.props.students.find((studentId => studentId.id === Number(this.props.match.params.studentId))) });
-    // let theStudent = this.props.students.find((studentId => studentId.id === Number(this.props.match.params.studentId)));
-    // this.setState({
-    //   foundStudent: {
-    //     firstName: theStudent.firstName,
-    //     lastName: theStudent.lastName,
-    //     email: theStudent.email,
-    //     gpa: theStudent.gpa,
-    //     campus: {
-    //       name: theStudent.campus.name
-    //     }
-    //   }
-    // });
-  //   console.log('------- ', this.state)
-  // }
 
   handleFirstNameChange(evt) {
     this.setState({ foundStudent: {firstName: evt.target.value }});
   }
   handleLastNameChange(evt) {
-    this.setState({ studentLastName: evt.target.value });
+    this.setState({ foundStudent: {lastName: evt.target.value }});
   }
   // handleCampusChange(evt, campusName) {
   //   this.setState({ campusName });
   // }
-  handleCampusChange(evt) {
+  handleCampusChange(evt, data) {
     console.log(evt.target)
-    this.setState({ campusName: evt.target.value });
+    // this.setState({ campusName: data.value });
+    this.setState({ foundStudent: {campus: {name: data.value} }});
+
   }
   handleEmailChange(evt) {
-    this.setState({ studentEmail: evt.target.value });
+    this.setState({ foundStudent: {email: evt.target.value }});
   }
   handleGpaChange(evt) {
-    this.setState({ studentGpa: evt.target.value });
+    this.setState({ foundStudent: {gpa: evt.target.value }});
   }
 
 //console.log(foundStudent)
@@ -89,7 +78,7 @@ class SingleStudent extends Component {
 
     // </div>
     return (
-      <Form onSubmit={this.props.handleSubmit}>
+      <Form onSubmit={(evt) => this.props.handleSubmit(evt, this.state)}>
       <Form.Group widths='equal'>
           <Form.Input onChange={this.handleFirstNameChange} name='firstName' label='First Name' value={this.state.foundStudent.firstName} />
           <Form.Input onChange={this.handleLastNameChange} name='lastName' label='Last Name' value={this.state.foundStudent.lastName} />
@@ -99,7 +88,7 @@ class SingleStudent extends Component {
           <Form.Input onChange={this.handleGpaChange} name='gpa' label='GPA' value={this.state.foundStudent.gpa} />
       </Form.Group>
 
-        <select onChange={(event) => this.handleCampusChange(event)} name='campusName'  name='campusName' value={this.state.foundStudent.campus}  >
+        {/* <select onChange={(event) => this.handleCampusChange(event)} name='campusName'  name='campusName' value={this.state.foundStudent.campus}  >
           {this.state.foundStudent.campus && <option selected > {this.state.foundStudent.campus.name}</option>}
 
         {this.props.campuses.map(campus => {
@@ -108,8 +97,15 @@ class SingleStudent extends Component {
             <option selected > { campus.name }</option>
           );
         })}
-      </select>
+      </select> */}
 
+        <Form.Select onChange={(evt, data) => this.handleCampusChange(evt, data)} name='campusName' options={this.props.campuses.map((campus) => {
+           return {
+              text: campus.name,
+              value: campus.name
+
+           }
+         })} placeholder='Campus' defaultValue={this.state.foundStudent.campus.name} error />
       <Button type='submit'>Update</Button>
     </Form>
   )}
@@ -127,13 +123,14 @@ function mapStateToProps(storeState) {
 
 const mapDispatchToProps = function (dispatch, ownProps) {
   return {
-    handleSubmit(evt) {
+    handleSubmit(evt, state) {
       evt.preventDefault();
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
       const email = evt.target.email.value;
       const gpa = evt.target.gpa.value;
-      const campusName = evt.target.campusName.value;
+      // const campusName = evt.target.campusName.value;
+      const campusName = state.foundStudent.campus.name;
       console.log(evt.target)
       // dispatch(postStudent({ firstName, lastName, campusName }, ownProps.history));
       console.log('444444444 ', ownProps)

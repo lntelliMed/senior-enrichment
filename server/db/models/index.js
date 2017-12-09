@@ -10,7 +10,7 @@ const Campus = require('./campus');
 	// Exporting all models from here seems like a good idea!
 
 // This is also probably a good place for you to set up your associations
-Student.belongsTo(Campus);
+Student.belongsTo(Campus, {onDelete: 'CASCADE'});
 Campus.hasMany(Student);
 
 module.exports = {

@@ -22,6 +22,7 @@ export function removeStudent(studentId) {
   return action;
 }
 
+
 export function postStudent(student, history) {
 console.log(student)
   return function thunk(dispatch) {
@@ -49,7 +50,8 @@ export function updateStudent(student, ownProps) {
         // history.push(`/students/${newStudent.id}`)
         ownProps.history.push(`/students`);
 
-      });
+      })
+     .catch(err => console.log(err)) // TO-DO: Show friendly error message to user;
   }
 }
 
@@ -75,6 +77,9 @@ export const deleteStudent = (studentId) => {
       .catch(err => console.log(err)) // TO-DO: Show friendly error message to user
   }
 }
+
+
+
 
 export const gotStudents = (students) => {
   return { type: GOT_STUDENTS_FROM_SERVER, students }

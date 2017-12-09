@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Header, Icon } from 'semantic-ui-react'
+import { Button, Header, Icon, Menu } from 'semantic-ui-react'
 
 export default class Navbar extends Component {
 
@@ -34,8 +34,35 @@ export default class Navbar extends Component {
 
             content='Margaret Hamilton Interplanetary Academy of JavaScript'
           /> */}
+{/*
+
+  <Menu>
+            <Menu.Item>
+                <Icon.Group size='large'>
+              <Icon loading size='big' name='sun' />
+              <Icon name='student' />
+            </Icon.Group>
+                    </Menu.Item>
+        <Menu.Item>
+            <h2>Margaret Hamilton Interplanetary Academy of JavaScript</h2>
+    </Menu.Item>
+            <Menu.Item>
+             <Button.Group>
+              <Link to="/campuses"><Button>Home</Button></Link>
+              <Button.Or />
+              <Link to="/students"><Button positive>Students</Button></Link>
+            </Button.Group>
+                    </Menu.Item>
 
 
+    {/* <Menu.Item>
+      <Link to="/campuses"><Button primary>Campuses</Button></Link>
+
+    </Menu.Item>
+
+    <Menu.Item>
+      <Link to="/students"><Button>Students</Button></Link>
+    </Menu.Item>  </Menu>*/}
 
 
 
