@@ -21,37 +21,28 @@ apiRouter.get('/:studentId', (req, res, next) => {
 });
 
 apiRouter.post('/', function (req, res, next) {
-	Campus.find({where: {name: req.body.campusName}})
-	.then(campus => {
-		req.body.campusId = campus.id;
-		return Student.create(req.body)
-	})
-	.then(student => res.json(student))
-	.catch(next);
-});
+	// Campus.find({where: {name: req.body.campusName}})
+	// .then(campus => {
+	// 	req.body.campusId = campus.id;
+	// 	return Student.create(req.body)
+	// })
+	// .then(student => res.json(student))
+	// .catch(next);
 
-
-apiRouter.put('/:studentId', function (req, res, next) {
-	console.log('In apiRouter.put!!', req.body.firstName, req.params.studentId)
-	Campus.find({ where: { name: req.body.campusName } })
-		.then(campus => {
-			req.body.campusId = campus.id;
-		})
-		.then(() => {
-			// return Student.findById(req.params.studentId)
-			Student.update(req.body, { where: { id: req.params.studentId}})
-		})
-		.then((student) => {
-			// return	student.update(req.body);
-			return res.json(student)
-		})
-		// .then(student => res.json(student))
+ 	Student.create(req.body)
+		.then(student => res.json(student))
 		.catch(next);
 });
 
+apiRouter.put('/:studentId', function (req, res, next) {
+		Student.update(req.body, { where: { id: req.params.studentId}})
+		.then((student) => {
+			return res.json(student)
+		})
+		.catch(next);
+});
 
 apiRouter.delete('/:studentId', function (req, res, next) {
-	console.log('................. ', req.body)
 	Student.destroy({where: {id: req.params.studentId}})
 		.then(response => res.send('Deletion was successfull!'))
 		.catch(next);

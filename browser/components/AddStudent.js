@@ -11,6 +11,7 @@ class AddStudent extends Component {
       studentFirstName: '',
       studentLastName: '',
       campusName: '',
+      campusId: 0,
       studentEmail: '',
       studentGpa: ''
     }
@@ -28,12 +29,13 @@ class AddStudent extends Component {
   handleLastNameChange(evt) {
     this.setState({ studentLastName: evt.target.value });
   }
-  // handleCampusChange(evt, campusName) {
-  //   this.setState({ campusName });
-  // }
-  handleCampusChange(evt) {
-    console.log(evt.target)
-    this.setState({ campusName: evt.target.value });
+  handleCampusChange(evt, data) {
+    this.setState({
+      campusName: data.value,
+      campusId: this.props.campuses.find((campus) => {
+        return campus.name === data.value;
+      }).id
+    });
   }
   handleEmailChange(evt) {
     this.setState({ studentEmail: evt.target.value });
@@ -41,10 +43,10 @@ class AddStudent extends Component {
   handleGpaChange(evt) {
     this.setState({ studentGpa: evt.target.value });
   }
-  render() {
 
+  render() {
     return (
-      <Form onSubmit={this.props.handleSubmit}>
+      <Form onSubmit={(evt) => this.props.handleSubmit(evt, this.state)}>
         <Form.Group widths='equal'>
           <Form.Input onChange={this.handleFirstNameChange} name='firstName' label='First Name' placeholder='First Name' value={this.state.firstName} error />
           <Form.Input onChange={this.handleLastNameChange} name='lastName' label='Last Name' placeholder='Last Name' value={this.state.lastName} error />
@@ -53,31 +55,19 @@ class AddStudent extends Component {
           <Form.Input onChange={this.handleEmailChange} name='email' label='E-mail' placeholder='E-mail' value={this.state.email} error />
           <Form.Input onChange={this.handleGpaChange} name='gpa' label='GPA' placeholder='GPA' value={this.state.gpa} error />
         </Form.Group>
-        {/* <Form.Select onChange={(event, { value }) => this.handleCampusChange(event, value)} name='campusName' options={this.props.campuses.map((campus) => {
-          return {
-            key: campus.id,
-            text: campus.name,
-            value: campus.name
-          }
-        })} placeholder='Campus' value={this.state.campusName} error /> */}
-        <Form.Group widths='equal'>
-
-        <select onChange={(event) => this.handleCampusChange(event)} name='campusName' value={this.state.campusName}  >
-          {this.props.campuses.map(campus => {
-            return (
-             <option>{campus.name}</option>
-            );
-          })}
-        </select>
-          </Form.Group>
-
-        <Button type='submit'>Submit</Button>
+        {this.props.campuses &&
+          <Form.Select label='Campus' onChange={(evt, data) => this.handleCampusChange(evt, data)} name='campusName' options={this.props.campuses.map((campus) => {
+            return {
+              text: campus.name,
+              value: campus.name
+            }
+          })} placeholder='Campus' error />}
+        <Button type='submit'>Add</Button>
       </Form>
     );
   }
 
 }
-
 
 function mapStateToProps(storeState) {
   return {
@@ -88,21 +78,17 @@ function mapStateToProps(storeState) {
 
 const mapDispatchToProps = function (dispatch, ownProps) {
   return {
-
-    handleSubmit(evt) {
+    handleSubmit(evt, internalState) {
       evt.preventDefault();
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
       const email = evt.target.email.value;
       const gpa = evt.target.gpa.value;
-      const campusName = evt.target.campusName.value;
-      console.log(evt.target)
-      // dispatch(postStudent({ firstName, lastName, campusName }, ownProps.history));
-      dispatch(postStudent({ firstName, lastName, email, gpa, campusName}, ownProps.history));
+      const campusId = internalState.campusId;
+      dispatch(postStudent({ firstName, lastName, email, gpa, campusId}, ownProps));
     }
   };
 };
-
 
 const AddStudentContainer = connect(mapStateToProps, mapDispatchToProps)(AddStudent);
 
