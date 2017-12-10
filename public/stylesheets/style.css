@@ -6,7 +6,6 @@ body {
   padding: 56px;
 }
 
-
 img {
   height: 200px;
 }
@@ -17,20 +16,9 @@ img {
    align-items: flex-end;
 }
 
-/* .campus-list {
-  padding-left: 0;
-  margin-left: 0;
-} */
-
-
 .campus-list li {
   display: inline-block;
-  /* padding-left: 0; */
 }
-
-/* .campus-item {
-  display: block;
-} */
 
  li {
     list-style-type: none;

@@ -38,7 +38,6 @@ class AddCampus extends Component {
           <Form.Input onChange={this.handleImageUrlChange} name='imageUrl' label='Image URL' placeholder='Image URL' value={this.state.imageUrl} error />
         </Form.Group>
         <Form.Group widths='equal'>
-          {/* <Form.t onChange={this.handleDescChange} name='email' label='E-mail' placeholder='E-mail' value={this.state.email} error /> */}
         <Form.Field onChange={this.handleDescChange}  name='description' id='form-textarea-control-opinion' control={TextArea} label='Description' placeholder='Description' value={this.state.description} />
 
         </Form.Group>
@@ -52,7 +51,6 @@ class AddCampus extends Component {
 
 }
 
-
 function mapStateToProps(storeState) {
   return {
     campuses: storeState.campuses
@@ -61,13 +59,11 @@ function mapStateToProps(storeState) {
 
 const mapDispatchToProps = function (dispatch, ownProps) {
   return {
-
     handleSubmit(evt) {
       evt.preventDefault();
       const name = evt.target.campusName.value;
       const imageUrl = evt.target.imageUrl.value;
       const description = evt.target.description.value;
-      console.log(name, imageUrl, description)
       dispatch(postCampus({ name, imageUrl, description}, ownProps.history));
     }
   };

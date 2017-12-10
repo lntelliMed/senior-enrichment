@@ -64,8 +64,6 @@ export default class Navbar extends Component {
       <Link to="/students"><Button>Students</Button></Link>
     </Menu.Item>  </Menu>*/}
 
-
-
       </nav>
     );
   }

@@ -1,13 +1,8 @@
 'use strict'
-const apiRouter = require('express').Router()
-const {Student, Campus} = require('../db/models')
 
-// If you aren't getting to this object, but rather the index.html (something with a joke) your path is wrong.
-	// I know this because we automatically send index.html for all requests that don't make sense in our backend.
-	// Ideally you would have something to handle this, so if you have time try that out!
-// apiRouter.get('/hello', (req, res) => res.send({ hello: 'world' }))
+const apiRouter = require('express').Router();
+const {Student, Campus} = require('../db/models');
 
-// You can put all routes in this file; HOWEVER, this file should almost be like a table of contents for the routers you create
 apiRouter.get('/', (req, res, next) => {
 	Student.findAll({ include: [Campus] })
 		.then(students => res.json(students))
@@ -28,8 +23,7 @@ apiRouter.post('/', function (req, res, next) {
 	// })
 	// .then(student => res.json(student))
 	// .catch(next);
-
- 	Student.create(req.body)
+	Student.create(req.body)
 		.then(student => res.json(student))
 		.catch(next);
 });
@@ -44,7 +38,7 @@ apiRouter.put('/:studentId', function (req, res, next) {
 
 apiRouter.delete('/:studentId', function (req, res, next) {
 	Student.destroy({where: {id: req.params.studentId}})
-		.then(response => res.send('Deletion was successfull!'))
+		.then((response) => res.send('Deletion was successfull!'))
 		.catch(next);
 });
 

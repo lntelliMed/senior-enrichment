@@ -11,9 +11,6 @@ class StudentList extends Component {
   }
   render() {
     return (
-
-
-
       <div>
         <Link to="/add-student">< Icon  bordered circular size='large' color='red' name='add button' /></Link>
 
@@ -28,66 +25,55 @@ class StudentList extends Component {
           </Table.Header>
 
           <Table.Body>
-
             {this.props.students.map(student => {
               return (
-            <Table.Row>
+                <Table.Row>
+                  <Table.Cell>
+                    <Link key={student.id} to={`/students/${student.id}`}>
+                        {student.id}
+                    </Link>
+                  </Table.Cell>
 
+                  <Table.Cell>
+                    <Link key={student.id} to={`/students/${student.id}`}>
+                      <Header as='h4' image>
+                        <Icon name='student' />
+                        <Header.Content>
+                            {student.name}
+                          </Header.Content>
+                      </Header>
+                    </Link>
+                  </Table.Cell>
 
+                  <Table.Cell>
+                    {student.campus  && <Link key={student.campus.id} to={`/campuses/${student.campus.id}`}>
+                      <Header as='h4' image>
+                        <Image src={student.campus.imageUrl} rounded size='mini' />
+                        <Header.Content>
+                          {student.campus.name}
+                        </Header.Content>
+                      </Header>
+                    </Link>}
+                  </Table.Cell>
 
-              <Table.Cell>
-                <Link key={student.id} to={`/students/${student.id}`}>
-                    {student.id}
-                </Link>
-              </Table.Cell>
-
-
-                <Table.Cell>
-                  <Link key={student.id} to={`/students/${student.id}`}>
-
-                  <Header as='h4' image>
-                    <Icon name='student' />
-                    <Header.Content>
-                        {student.name}
-                      </Header.Content>
-                  </Header>
-                  </Link>
-
-                </Table.Cell>
-
-
-                <Table.Cell>
-                 { student.campus  && <Link key={student.campus.id} to={`/campuses/${student.campus.id}`}>
-
-                    <Header as='h4' image>
-                      <Image src={student.campus.imageUrl} rounded size='mini' />
-                      <Header.Content>
-                        {student.campus.name}
-                      </Header.Content>
-                    </Header>
-                  </Link>}
-
-                </Table.Cell>
-
-              <Table.Cell>
-                  <Button onClick={() => {
-                      if (confirm("Are you sure?")) {
-                        this.props.deleteStudent(student.id);
-                      }
-                    }} circular color='google plus' icon='remove' size='mini' />
-              </Table.Cell>
-            </Table.Row>
+                  <Table.Cell>
+                      <Button onClick={() => {
+                          if (confirm("Are you sure?")) {
+                            this.props.deleteStudent(student.id);
+                          }
+                        }} circular color='google plus' icon='remove' size='mini' />
+                  </Table.Cell>
+                </Table.Row>
             )})}
 
           </Table.Body>
         </Table>
-
-
       </div>
 
     );
   }
 }
+
 
 function mapStateToProps(storeState) {
   return {
@@ -105,8 +91,6 @@ function mapDispatchToProps(dispatch) {
     }
   };
 }
-
-
 
 const StudentListContainer = connect(mapStateToProps, mapDispatchToProps)(StudentList);
 

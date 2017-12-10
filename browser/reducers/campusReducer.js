@@ -6,6 +6,9 @@ const ADD_CAMPUS = "ADD_CAMPUS";
 const REMOVE_CAMPUS = "REMOVE_CAMPUS";
 const UPDATE_CAMPUS = "UPDATE_CAMPUS";
 
+export const gotCampuses = (campuses) => {
+  return { type: GOT_CAMPUSES_FROM_SERVER, campuses }
+}
 
 export const fetchCampuses = () => {
   return function (dispatch) {
@@ -14,7 +17,7 @@ export const fetchCampuses = () => {
       .then(campuses => {
         dispatch(gotCampuses(campuses));
       })
-      .catch(err => console.log(err)) // TO-DO: Show friendly error message to user
+      .catch(err => console.log(err));
   }
 }
 
@@ -24,8 +27,6 @@ export function changeCampus(campus) {
 }
 
 export function updateCampus(campus, ownProps) {
-  console.log(campus)
-  console.log('ownprops again', ownProps)
   return function thunk(dispatch) {
     return axios.put(`/api/campuses/${ownProps.match.params.campusId}`, campus)
       .then(res => res.data)
@@ -33,14 +34,9 @@ export function updateCampus(campus, ownProps) {
         const action = changeCampus(updatedCampus);
         dispatch(action);
         ownProps.history.push(`/campuses`);
-
       })
-     .catch(err => console.log(err)) // TO-DO: Show friendly error message to user;
+     .catch(err => console.log(err));
   }
-}
-
-export const gotCampuses = (campuses) => {
-  return { type: GOT_CAMPUSES_FROM_SERVER, campuses }
 }
 
 export function getCampus(campus) {
@@ -53,37 +49,32 @@ export function removeCampus(campusId) {
   return action;
 }
 
-export function postCampus(campus, history) {
-console.log(campus)
+export function postCampus(campus, ownProps) {
   return function thunk(dispatch) {
     return axios.post('/api/campuses', campus)
       .then(res => res.data)
       .then(newCampus => {
         const action = getCampus(newCampus);
         dispatch(action);
-        history.push(`/campuses`);
-
+        ownProps.history.push(`/campuses`);
       });
   }
 }
 
 export const deleteCampus = (campusId, ownProps) => {
-  console.log('deleting ' + campusId)
   return function (dispatch) {
     axios.delete(`/api/campuses/${campusId}`)
-      .then(response => {
-        console.log('in deleteCampus' + response);
+      .then((response) => {
         dispatch(removeCampus(campusId));
         ownProps.history.push(`/campuses`);
       })
       .catch(err => {
                 ownProps.history.push(`/campuses`);
-
-                console.log(err)}) // TO-DO: Show friendly error message to user
+                console.log(err)
+      });
 
   }
 }
-
 
 const campusReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -95,13 +86,12 @@ const campusReducer = (state = initialState, action) => {
 
 
     case REMOVE_CAMPUS:
-      console.log('in reducer for remove student')
       return state.filter(campus => campus.id !== action.campusId);
 
 
     case UPDATE_CAMPUS:
-      console.log('in reducer for update campus')
       return state.filter(campus => campus.id !== action.campus.id);
+
     default:
       return state;
   }
