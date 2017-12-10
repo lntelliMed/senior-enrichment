@@ -61,6 +61,10 @@ export const fetchStudents = () => {
   }
 }
 
+// export const gotStudent = (student) => {
+//   return { type: GOT_STUDENT_FROM_SERVER, student }
+// }
+
 // export const fetchStudent = (studentId) => {
 //   return function (dispatch) {
 //     axios.get(`/api/students/${studentId}`)
@@ -72,9 +76,9 @@ export const fetchStudents = () => {
 //   }
 // }
 
-// export const gotStudents = (students) => {
-//   return { type: GOT_STUDENTS_FROM_SERVER, students }
-// }
+export const gotStudents = (students) => {
+  return { type: GOT_STUDENTS_FROM_SERVER, students }
+}
 
 export const deleteStudent = (studentId) => {
   return function (dispatch) {
@@ -84,10 +88,6 @@ export const deleteStudent = (studentId) => {
       })
       .catch(err => console.log(err));
   }
-}
-
-export const gotStudent = (student) => {
-  return { type: GOT_STUDENT_FROM_SERVER, student }
 }
 
 const studentReducer = (state = initialState, action) => {

@@ -12,8 +12,9 @@ class StudentList extends Component {
   render() {
     return (
       <div>
-        <Link to="/add-student">< Icon  bordered circular size='large' color='red' name='add button' /></Link>
-
+        <Link to="/add-student">
+          <Icon bordered circular size='big' color='red' name='user add' />
+        </Link>
         <Table  sortable celled collapsing>
           <Table.Header>
             <Table.Row>
@@ -27,7 +28,7 @@ class StudentList extends Component {
           <Table.Body>
             {this.props.students.map(student => {
               return (
-                <Table.Row>
+                <Table.Row key={student.id} >
                   <Table.Cell>
                     <Link key={student.id} to={`/students/${student.id}`}>
                         {student.id}
@@ -57,11 +58,13 @@ class StudentList extends Component {
                   </Table.Cell>
 
                   <Table.Cell>
-                      <Button onClick={() => {
+                      <Icon onClick={() => {
                           if (confirm("Are you sure?")) {
                             this.props.deleteStudent(student.id);
                           }
-                        }} circular color='google plus' icon='remove' size='mini' />
+                          }}
+                            bordered circular size='large' color='grey' name='user delete'>
+                      </Icon>
                   </Table.Cell>
                 </Table.Row>
             )})}
@@ -76,8 +79,9 @@ class StudentList extends Component {
 
 
 function mapStateToProps(storeState) {
+  let students = storeState.students.sort((x, y) => x.id > y.id);
   return {
-    students: storeState.students
+    students
   };
 }
 

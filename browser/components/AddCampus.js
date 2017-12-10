@@ -44,7 +44,7 @@ class AddCampus extends Component {
         <Form.Group widths='equal'>
           </Form.Group>
 
-        <Button type='submit'>Submit</Button>
+        <Button type='submit'>Add</Button>
       </Form>
     );
   }
@@ -64,7 +64,7 @@ const mapDispatchToProps = function (dispatch, ownProps) {
       const name = evt.target.campusName.value;
       const imageUrl = evt.target.imageUrl.value;
       const description = evt.target.description.value;
-      dispatch(postCampus({ name, imageUrl, description}, ownProps.history));
+      dispatch(postCampus({ name, imageUrl, description}, ownProps));
     }
   };
 };

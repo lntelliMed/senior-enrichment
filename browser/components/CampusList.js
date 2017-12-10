@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchCampuses } from '../reducers/campusReducer';
+import { fetchCampuses, fetchStudents } from '../reducers/campusReducer';
 import { Icon} from 'semantic-ui-react'
 
 class CampusList extends Component {
   componentDidMount() {
     this.props.loadCampuses();
+    // this.props.loadStudents();
   }
 
   render() {
     return (
       <div>
-        <Link to="/add-campus">
-          <Icon  bordered circular size='large' color='red' name='add button' />
+        <Link className="add-campus" to="/add-campus">
+          <Icon bordered circular size='big' color='red' name='add' />
         </Link>
-
         <ul className="campus-list">
           {this.props.campuses.map(campus => (
               <Link key={campus.id} to={`/campuses/${campus.id}`}>
@@ -36,7 +36,8 @@ class CampusList extends Component {
 
 function mapStateToProps(storeState) {
   return {
-    campuses: storeState.campuses
+    campuses: storeState.campuses,
+    // students: storeState.students
   };
 }
 
@@ -45,6 +46,10 @@ function mapDispatchToProps(dispatch) {
     loadCampuses: function () {
       dispatch(fetchCampuses());
     }
+    // ,
+    // loadStudents: function () {
+    //   dispatch(fetchStudents());
+    // }
   };
 }
 

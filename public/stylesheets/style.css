@@ -12,12 +12,26 @@ img {
 
 .school-header {
   display: flex;
-   justify-content: flex-start;
-   align-items: flex-end;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.school-header-buttons {
+  flex-grow: 4;
+  justify-content: flex-start;
+}
+
+.school-header-logo {
+  flex-grow: 1;
+  justify-content: flex-end;
 }
 
 .campus-list li {
   display: inline-block;
+}
+
+.add-campus {
+  padding-left: 80px;
 }
 
  li {
