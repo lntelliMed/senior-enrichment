@@ -10,18 +10,18 @@ img {
   height: 200px;
 }
 
-.school-header {
+.campus-header {
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
 }
 
-.school-header-buttons {
+.campus-header-buttons {
   flex-grow: 4;
   justify-content: flex-start;
 }
 
-.school-header-logo {
+.campus-header-logo {
   flex-grow: 1;
   justify-content: flex-end;
 }
