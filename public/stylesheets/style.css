@@ -30,8 +30,25 @@ img {
   display: inline-block;
 }
 
-.add-campus {
-  padding-left: 80px;
+.search-campus-header {
+  padding-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.search-campus {
+  justify-content: flex-end;
+  padding-right: 80px;
+
+}
+
+.add-campus{
+  padding-left: 15px;
+}
+
+.add-student{
+  padding-left: 15px;
 }
 
  li {

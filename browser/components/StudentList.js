@@ -2,19 +2,41 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchStudents, deleteStudent } from '../reducers/studentReducer';
-import { Header, Image, Table, Button, Icon} from 'semantic-ui-react'
+import { Header, Image, Table, Input, Icon} from 'semantic-ui-react'
 
 
 class StudentList extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      searchFieldValue: ''
+    }
+  }
+
   componentDidMount() {
     this.props.loadStudents();
   }
+
+  handleChange(event) {
+    this.setState({
+      searchFieldValue: event.target.value
+    });
+  }
+
   render() {
+    let filteredStudents = this.props.students.filter(student => student.name.match(this.state.searchFieldValue));
     return (
       <div>
-        <Link to="/add-student">
-          <Icon bordered circular size='big' color='red' name='user add' />
-        </Link>
+
+        <div className="search-student-header">
+          <div className="search-student" >
+            <Input onChange={event => this.handleChange(event)} placeholder='Search Students...' />
+            <Link className="add-student" to="/add-student">
+              <Icon bordered circular size='large' color='red' name='user add' />
+            </Link>
+          </div>
+        </div>
+        {filteredStudents.length > 0 &&
         <Table  sortable celled collapsing>
           <Table.Header>
             <Table.Row>
@@ -26,7 +48,7 @@ class StudentList extends Component {
           </Table.Header>
 
           <Table.Body>
-            {this.props.students.map(student => {
+            {filteredStudents.map(student => {
               return (
                 <Table.Row key={student.id} >
                   <Table.Cell>
@@ -71,6 +93,7 @@ class StudentList extends Component {
 
           </Table.Body>
         </Table>
+        }
       </div>
 
     );
